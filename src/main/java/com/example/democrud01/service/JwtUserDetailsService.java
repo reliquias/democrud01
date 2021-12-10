@@ -9,21 +9,29 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.democrud01.model.UserSistem;
+
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
     private UserService userService;
 	
+	private UserSistem userSistem;
+	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		com.example.democrud01.model.UserSistem user = userService.getByEmail(email);
+		userSistem = userService.getByEmail(email);
 		
-		if (user.getEmail().equals(email)) {
-			return new User(email, user.getPassword(),
+		if (userSistem.getEmail().equals(email)) {
+			return new User(email, userSistem.getPassword(),
 					new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("User not found with email: " + email);
 		}
+	}
+
+	public UserSistem getUserSistem() {
+		return userSistem;
 	}
 }

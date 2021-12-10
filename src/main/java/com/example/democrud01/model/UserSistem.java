@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.example.democrud01.enums.RoleUser;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,6 @@ public class UserSistem{
 	private String email;
 	private String phone;
 	private String password;
-	private String login;
+	private RoleUser roleUser;
 
 }

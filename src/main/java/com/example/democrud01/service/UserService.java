@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class UserService {
 	 @Autowired
 	 private UserRepository userRepository;
 
-	   public UserSistem create(UserSistem user) {
+	 public UserSistem create(UserSistem user) {
 		   String generatedSecuredPasswordHash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
 		   user.setPassword(generatedSecuredPasswordHash);
 		   return userRepository.save(user);
@@ -34,6 +35,4 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}
-
-	 	
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.democrud01.conf.JwtTokenUtil;
@@ -21,8 +20,9 @@ import com.example.democrud01.model.JwtResponse;
 import com.example.democrud01.service.JwtUserDetailsService;
 
 @RestController
-@RequestMapping({"/api"})
-@CrossOrigin
+@RequestMapping({"/api/authenticate"})
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
 public class JwtAuthenticationController {
 
 	@Autowired
@@ -44,12 +44,13 @@ public class JwtAuthenticationController {
 		return "chegou no destino testePost";
 	}
 
-	@PostMapping(path= {"/authenticate"})
+	@PostMapping
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+		System.out.println("chagou a tentar autenticar");
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token));
+		return ResponseEntity.ok(new JwtResponse(token, userDetailsService.getUserSistem().getRoleUser()));
 	}
 
 	private void authenticate(String username, String password) throws Exception {

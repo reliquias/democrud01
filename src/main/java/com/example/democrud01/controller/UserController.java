@@ -37,7 +37,6 @@ public class UserController {
     
     @GetMapping
     public List getAll() {
-    	System.out.println("Buscar Usuarios");
         return UserService.getAll();
     }
 }

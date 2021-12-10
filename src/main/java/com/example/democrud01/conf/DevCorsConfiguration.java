@@ -11,6 +11,30 @@ public class DevCorsConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**").allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
+    	registry.addMapping("/**")
+        .allowedOrigins("http://localhost:4200")
+       .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+    	/* 
+        registry.addMapping("/**")
+        .allowedOrigins("http://localhost:4200")
+        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
+        */
+        /*
+        registry.addMapping("/**")
+        .allowedOrigins("http://localhost:4200")
+        .allowedMethods("*")
+        .maxAge(3600L)
+        .allowedHeaders("*")
+        .exposedHeaders("Authorization")
+        .allowCredentials(true);
+        */
+        /*
+        registry.addMapping("/**")
+        .allowedOrigins("*")
+        .allowedHeaders("*")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+        .maxAge(-1)   // add maxAge
+        .allowCredentials(false);
+        */
     }
 }
