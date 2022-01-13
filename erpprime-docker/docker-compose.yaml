@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:5.6
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=springdocker01
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=password
+    
+  back:
+    container_name: erpprimeback
+    depends_on:
+      - mysqldb
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    links:
+      - mysqldb
+      
+  adminer:
+    container_name: adminer
+    image: adminer
+    ports:
+      - 8083:8080
+    links:
+      - mysqldb
