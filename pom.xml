@@ -17,6 +17,15 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+	
+	<repositories>
+	    <repository>
+	        <id>swagger</id>
+	        <name>swagger</name>
+	        <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+	    </repository>
+	</repositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -75,6 +84,19 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.3.9</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

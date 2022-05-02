@@ -1,7 +1,5 @@
 package com.example.democrud01.conf;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import com.example.democrud01.filter.JwtRequestFilter;
 
@@ -64,10 +59,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		*/
-		httpSecurity.csrf().disable();
+		httpSecurity.csrf().disable().authorizeRequests()
+		.antMatchers("/authenticate", "/v2/api-docs", "/configuration/ui","/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll();
 		httpSecurity.cors();
 		//httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/contacts").permitAll().anyRequest().authenticated();
 		httpSecurity.authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+		.antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/users").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()

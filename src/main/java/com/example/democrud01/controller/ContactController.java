@@ -3,6 +3,7 @@ package com.example.democrud01.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.example.democrud01.repository.ContactRepository;
 
 @RestController
 @RequestMapping({"/api/contacts"})
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ContactController {
 	
 	private ContactRepository repository;

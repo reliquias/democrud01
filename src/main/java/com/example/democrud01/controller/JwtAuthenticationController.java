@@ -21,6 +21,7 @@ import com.example.democrud01.service.JwtUserDetailsService;
 
 @RestController
 @RequestMapping({"/api/authenticate"})
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
 public class JwtAuthenticationController {
