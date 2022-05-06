@@ -7,6 +7,7 @@ public class JwtResponse {
 	private static final long serialVersionUID = -8091879091924046844L;
 	private final String jwttoken;
 	private final RoleUser roleUser;
+	private String jwttokenToSwagger;
 
 	public JwtResponse(String jwttoken, RoleUser roleUser) {
 		this.jwttoken = jwttoken;
@@ -19,5 +20,10 @@ public class JwtResponse {
 
 	public RoleUser getRoleUser() {
 		return roleUser;
+	}
+
+	public String getJwttokenToSwagger() {
+		jwttokenToSwagger = "Bearer " + jwttoken;
+		return jwttokenToSwagger;
 	}
 }
