@@ -48,8 +48,11 @@ public class VendaController {
 
 	@ApiOperation(value = "Alterar venda do sistema")
 	@PutMapping(value="/{id}")
-	public ResponseEntity update(@PathVariable("id") long id, @RequestBody Venda objeto) {
-		return vendaService.update(id, objeto);
+	public ResponseEntity<VendaDTO> update(@PathVariable("id") long id, @RequestBody VendaForm form, UriComponentsBuilder uriBuilder) {
+		Venda venda = form.converter(clienteService);
+		vendaService.update(id, venda);
+		URI uri = uriBuilder.path("/api/venda/{id}").buildAndExpand(venda.getId()).toUri();
+        return ResponseEntity.created(uri).body(new VendaDTO(venda));
 	}
 
 	@ApiOperation(value = "Procura um venda pelo id")
