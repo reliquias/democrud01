@@ -1,14 +1,18 @@
 package com.example.democrud01.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import com.example.democrud01.model.Venda;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class VendaDTO {
 
 	private Long id;
@@ -23,8 +27,8 @@ public class VendaDTO {
 		this.idCliente = venda.getCliente().getId();
 	}
     
-    public static List<VendaDTO> converter(List<Venda> vendas) {
-		return vendas.stream().map(VendaDTO::new).collect(Collectors.toList());
+    public static Page<VendaDTO> converter(Page<Venda> vendas) {
+		return vendas.map(VendaDTO::new);
 	}
     
     
