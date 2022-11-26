@@ -35,6 +35,10 @@ public class UserService {
 			return ResponseEntity.ok().body(updated);
 		}).orElse(ResponseEntity.notFound().build());
 	}
+	
+	public void deleteById(long id) {
+		userRepository.deleteById(id);
+	}
 
 	public Optional<UserSistem> get(Long id) {
 		return userRepository.findById(id);

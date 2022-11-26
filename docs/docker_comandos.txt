@@ -15,3 +15,21 @@ docker run -d -p 8089:8089 --name user-mysql --link mysql-standalone:mysql user-
 
 Consulta logs do container do web
 docker container logs user-mysql
+
+=======================================================================================================
+USAR AQUI.
+Subir o docker a partir da pasta erpprime-docker com o VS
+
+pelo terminal vá em: C:\Fontes Spring\democrud01> execute
+mvn clean install -DskipTests
+O comando ira gerar um jar.
+
+
+criar o docker compose
+pelo terminal vá em C:\Fontes Spring\democrud01\erpprime-docker> e execute os comandos
+docker-compose up -d
+
+subir o docker compose
+docker-compose ps
+
+Observação, para subir um jar atualizado é preciso apagar a imagem do docker

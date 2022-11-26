@@ -31,7 +31,10 @@ services:
     links:
       - mysqldb
 
-  # Administrador de banco de dados mysql, acessa via browser    
+  # Administrador de banco de dados mysql, acessa via browser
+  # Servidor: mysqldb
+  # Usuario: root
+  # Senha: password     
   adminer:
     container_name: adminer
     image: adminer
