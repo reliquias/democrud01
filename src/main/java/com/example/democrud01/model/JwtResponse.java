@@ -1,23 +1,44 @@
 package com.example.democrud01.model;
 
+import java.math.BigDecimal;
+
 import com.example.democrud01.enums.RoleUser;
 
 public class JwtResponse {
 	
-	private static final long serialVersionUID = -8091879091924046844L;
+	private final Long id; 
+	private final String name;
 	private final String jwttoken;
-	private final RoleUser roleUser;
+	private final RoleUser nivel;
+	private String jwttokenToSwagger;
 
-	public JwtResponse(String jwttoken, RoleUser roleUser) {
+	public JwtResponse(Long idUser, String jwttoken, RoleUser nivel, String name) {
+		this.id = idUser;
+		this.name = name;
 		this.jwttoken = jwttoken;
-		this.roleUser = roleUser;
+		this.nivel = nivel;
 	}
 
 	public String getToken() {
 		return this.jwttoken;
 	}
 
-	public RoleUser getRoleUser() {
-		return roleUser;
+	public RoleUser getNivel() {
+		return nivel;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public String getJwttokenToSwagger() {
+		jwttokenToSwagger = "Bearer " + jwttoken;
+		return jwttokenToSwagger;
 	}
 }

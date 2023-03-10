@@ -55,21 +55,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		/*
-		// Não cheque essas requisições
+		
 		httpSecurity.csrf().disable().authorizeRequests()
-		.antMatchers("/authenticate", "/v2/api-docs", "/configuration/ui","/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll().
-		// Qualquer outra requisição deve ser checada
-				anyRequest().authenticated().and().exceptionHandling()
-				.authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		*/
-		httpSecurity.csrf().disable();
+		.antMatchers("/authenticate", "/v2/api-docs", "/configuration/ui","/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll();
 		httpSecurity.cors();
-		//httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/contacts").permitAll().anyRequest().authenticated();
 		httpSecurity.authorizeRequests()
+		
+		.antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/users").permitAll()
+		.antMatchers(HttpMethod.GET, "/api/users/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
+		.antMatchers(HttpMethod.PUT, "/api/users/*").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/api/users/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
 		//.antMatchers(HttpMethod.GET, "/api/contacts").permitAll()
 		//.antMatchers(HttpMethod.POST, "/api/contacts").permitAll()

@@ -1,0 +1,62 @@
+/*JSONS CADASTROS*/
+
+
+
+/*
+POST
+http://localhost:8089/api/authenticate*/
+{
+  "password": "123Mudar",
+  "username": "wreliquias@gmail.com"
+}
+
+/*
+PUT
+http://localhost:8089/api/users
+*/
+{
+  "desativado": false,
+  "email": "jaque.marques10@yahoo.com.br",
+  "name": "Jaqueline",
+  "nivel": "user",
+  "password": "123456",
+  "phone": "11988834468",
+  "pix": "11988834468"
+}
+
+/*
+PUT
+http://localhost:8089/api/selectUsuario*/
+{
+  "apelido": "UsuariosNome",
+  "desativado": false,
+  "formatoPagina": "RETRATO",
+  "selectUsu": "SELECT NAME, PHONE FROM USER_SISTEM WHERE NAME LIKE '%' + :S_NOME + '%'",
+  "titulo": "Usuarios Por Nome"
+}
+
+/*
+PUThttp://localhost:8089/api/selectUsuarioFiltro
+*/
+{
+  "idSelectUsuario": 2,
+  "label": "NOME",
+  "selectFiltro": "SELECT NAME FROM USER_SISTEM;"
+}
+
+
+/*
+POST
+http://localhost:8089/api/selectUsuario/docUsu
+*/
+{
+  "filtros": [
+    {
+      "conteudo": "w",
+      "label": "NOME",
+      "tipo": "texto"
+    }
+  ],
+  "idRelatorio": 2,
+  "tipoDocumento": "pdf"
+}

@@ -21,8 +21,7 @@ import com.example.democrud01.service.JwtUserDetailsService;
 
 @RestController
 @RequestMapping({"/api/authenticate"})
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
-//@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:4200/", "http://www.505crm.com.br/"}, maxAge = 3600, allowCredentials = "true", allowedHeaders = "*")
 public class JwtAuthenticationController {
 
 	@Autowired
@@ -50,7 +49,7 @@ public class JwtAuthenticationController {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token, userDetailsService.getUserSistem().getRoleUser()));
+		return ResponseEntity.ok(new JwtResponse(userDetailsService.getUserSistem().getId(), token, userDetailsService.getUserSistem().getNivel(), userDetailsService.getUserSistem().getName()));
 	}
 
 	private void authenticate(String username, String password) throws Exception {

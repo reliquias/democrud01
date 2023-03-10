@@ -1,0 +1,17 @@
+Da um build com um alias (Dockerfile)
+docker build -t user-mysql .
+
+Download da imagem caso nao tenha
+docker pull mysql:5.6
+
+Sobe o container do mysql
+docker run --detach --name=mysql-standalone --env="MYSQL_ROOT_PASSWORD=password" --env="MYSQL_DATABASE=springdocker01" --env="MYSQL_USER=sa" --env="MYSQL_PASSWORD=password" mysql:5.6
+
+Da uma olhada nos logs se esta tudo ok
+docker container logs mysql-standalone
+
+Faz o link
+docker run -d -p 8089:8089 --name user-mysql --link mysql-standalone:mysql user-mysql
+
+Consulta logs do container do web
+docker container logs user-mysql
