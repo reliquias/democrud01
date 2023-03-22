@@ -22,7 +22,7 @@ public class UserForm {
 	private String password;
 
 	public UserSistem converter() {
-    	return new UserSistem(name, email, phone, password, nivel, LocalDateTime.now(), desativado);
+    	return new UserSistem(name, email, phone, password, nivel, desativado);
     }
 	
 

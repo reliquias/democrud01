@@ -1,6 +1,6 @@
 package com.example.democrud01.model;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,17 +33,15 @@ public class UserSistem{
 	private String phone;
 	private String password;
 	private RoleUser nivel;
-	private LocalDateTime dataCadastro = LocalDateTime.now();
+	private Calendar dataCadastro = Calendar.getInstance();
 	private Boolean desativado;
 	
-	public UserSistem(String name, String email, String phone, String password, RoleUser nivel,
-			LocalDateTime dataCadastro, Boolean desativado) {
+	public UserSistem(String name, String email, String phone, String password, RoleUser nivel, Boolean desativado) {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
 		this.nivel = nivel;
-		this.dataCadastro = dataCadastro;
 		this.desativado = desativado;
 	}
 	

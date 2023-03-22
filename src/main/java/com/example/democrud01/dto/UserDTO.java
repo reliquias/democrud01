@@ -1,6 +1,7 @@
 package com.example.democrud01.dto;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import org.springframework.data.domain.Page;
 
@@ -22,7 +23,7 @@ public class UserDTO {
 	private String phone;
 	private String password;
 	private RoleUser nivel;
-	private LocalDateTime dataCadastro = LocalDateTime.now();
+	private Calendar dataCadastro = Calendar.getInstance();
 	private Boolean desativado;
 	
 	public UserDTO(UserSistem user) {
