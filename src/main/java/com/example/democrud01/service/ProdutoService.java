@@ -1,5 +1,6 @@
 package com.example.democrud01.service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,10 @@ public class ProdutoService {
 	
 	public Page<Produto> getAllByCodigo(String codigo, Pageable paginacao) {
 		return produtoRepository.findByNome(codigo, paginacao);
+	}
+	
+	public ResponseEntity<Produto> updateSaldo(Long id, Produto produto, BigDecimal qtdVendida) {
+		produto.setEstoqueAtual(produto.getEstoqueAtual().subtract(qtdVendida));
+ 	   	return update(id, produto);
 	}
 }

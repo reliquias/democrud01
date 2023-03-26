@@ -1,5 +1,6 @@
 package com.example.democrud01.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,13 @@ public class ProdutoController {
 		Page<Produto> produtos = codigo !=null ? produtoService.getAllByCodigo(codigo, page) : produtoService.getAll(page);
         return ProdutoDTO.converter(produtos);
     }
+	
+	@ApiOperation(value = "Alterar produto do sistema")
+	@PutMapping(value="/updateSaldo")
+	public ResponseEntity<?> updateSaldo(@RequestParam long id, @RequestParam BigDecimal qtdVendida, UriComponentsBuilder uriBuilder) {
+		return produtoService.get(id)
+		           .map(produto -> {
+		        	   return produtoService.updateSaldo(id, produto, qtdVendida);
+		           }).orElse(ResponseEntity.notFound().build());
+	}
 }

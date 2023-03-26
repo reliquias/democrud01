@@ -27,7 +27,9 @@ import com.example.democrud01.dto.ItemVendaForm;
 import com.example.democrud01.dto.VendaDTO;
 import com.example.democrud01.dto.VendaForm;
 import com.example.democrud01.model.ItemVenda;
+import com.example.democrud01.model.Produto;
 import com.example.democrud01.model.Venda;
+import com.example.democrud01.repository.ProdutoRepository;
 import com.example.democrud01.service.AgenteService;
 import com.example.democrud01.service.ItemVendaService;
 import com.example.democrud01.service.ProdutoService;
@@ -56,6 +58,9 @@ public class VendaController {
 	@Autowired
     private ProdutoService produtoService;
 	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
 	
 	@ApiOperation(value = "Cadastrar um novo Venda do sistema")
 	@PostMapping
@@ -72,14 +77,23 @@ public class VendaController {
         Venda venda = form.converterFull(userService, agenteService);
         Collection<ItemVenda> itens = new ArrayList<>();
         
+        List<Produto> produtos = new ArrayList<>();
+        
         for (ItemVendaForm itemForm : form.getItens()) {
             ItemVenda itemVenda = itemForm.converterSemVenda(produtoService);
             itemVenda.setVenda(venda);
             itens.add(itemVenda);
+            Produto produto = itemVenda.getProduto();
+            produto.setEstoqueAtual(produto.getEstoqueAtual().subtract(itemVenda.getQuantidade()));
+            produtos.add(itemVenda.getProduto());
 		}
         venda.setItensVendaCollection(itens);
         vendaService.create(venda);
-		URI uri = uriBuilder.path("/api/venda/{id}").buildAndExpand(venda.getId()).toUri();
+        
+        for (Produto produto : produtos) {
+        	produtoRepository.save(produto);
+		}
+        URI uri = uriBuilder.path("/api/venda/{id}").buildAndExpand(venda.getId()).toUri();
         return ResponseEntity.created(uri).body(new VendaDTO(venda));
     }
 
