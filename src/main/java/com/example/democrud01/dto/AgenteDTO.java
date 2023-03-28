@@ -1,5 +1,7 @@
 package com.example.democrud01.dto;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.domain.Page;
 
 import com.example.democrud01.enums.TipoAgente;
@@ -20,6 +22,7 @@ public class AgenteDTO {
 	private String phone;
 	private TipoAgente tipo;
 	private Boolean desativado;
+	private BigDecimal credito;
 	
 	public AgenteDTO(Agente agente) {
 		this.id = agente.getId();
@@ -28,6 +31,7 @@ public class AgenteDTO {
 		this.phone = agente.getPhone();
 		this.tipo = agente.getTipo();
 		this.desativado = agente.getDesativado();
+		this.credito = agente.getCredito()==null? BigDecimal.ZERO : agente.getCredito();
 	}
 	
 	

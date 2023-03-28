@@ -1,5 +1,7 @@
 package com.example.democrud01.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,13 +31,15 @@ public class Agente {
 	private String email;
 	private String phone;
 	private Boolean desativado;
+	private BigDecimal credito;
 	
-	public Agente(TipoAgente tipo, String name, String email, String phone, Boolean desativado) {
+	public Agente(TipoAgente tipo, String name, String email, String phone, Boolean desativado, BigDecimal credito) {
 		this.tipo = tipo;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.desativado = desativado;
+		this.credito = this.credito;
 	}
 	
 	

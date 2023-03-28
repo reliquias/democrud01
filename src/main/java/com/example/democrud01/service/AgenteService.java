@@ -1,5 +1,6 @@
 package com.example.democrud01.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,18 @@ public class AgenteService {
 		
 		Agente updated = agenteRepository.save(record);
 		return ResponseEntity.ok().body(updated);
+	}
+	
+	public Agente updateCredito(long id, BigDecimal valor) {
+		Agente record = agenteRepository.findById(id).get();
+		if(record == null) {
+			return null;
+		}
+		BigDecimal atual = record.getCredito() == null ? BigDecimal.ZERO : record.getCredito();
+		record.setCredito(atual.add(valor));
+		
+		Agente updated = agenteRepository.save(record);
+		return updated;
 	}
 		
 	public void deleteById(long id) {

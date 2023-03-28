@@ -1,5 +1,6 @@
 package com.example.democrud01.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -93,6 +94,10 @@ public class VendaController {
         for (Produto produto : produtos) {
         	produtoRepository.save(produto);
 		}
+        
+        if(venda.getCliente()!=null && venda.getSaldoDevedor()!=null && venda.getSaldoDevedor().compareTo(BigDecimal.ZERO) != 0) {
+        	agenteService.updateCredito(venda.getCliente().getId(), venda.getSaldoDevedor());
+        }
         URI uri = uriBuilder.path("/api/venda/{id}").buildAndExpand(venda.getId()).toUri();
         return ResponseEntity.created(uri).body(new VendaDTO(venda));
     }

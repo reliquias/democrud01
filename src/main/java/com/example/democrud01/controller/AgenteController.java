@@ -1,5 +1,6 @@
 package com.example.democrud01.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -52,6 +53,14 @@ public class AgenteController {
 		Agente agente = form.converter();
 		agenteService.update(id, agente);
 		URI uri = uriBuilder.path("/api/agente/{id}").buildAndExpand(agente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new AgenteDTO(agente));
+	}
+	
+	@ApiOperation(value = "Alterar Agente do sistema")
+	@PutMapping(value="/updateCredito")
+	public ResponseEntity<AgenteDTO> updateCredito(@RequestParam("id") long id, @RequestParam BigDecimal valor, UriComponentsBuilder uriBuilder) {
+		Agente agente = agenteService.updateCredito(id, valor);
+		URI uri = uriBuilder.path("/api/agente/updateCredito").buildAndExpand(agente.getId()).toUri();
         return ResponseEntity.created(uri).body(new AgenteDTO(agente));
 	}
 
