@@ -47,6 +47,10 @@ public class Venda {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "venda")
 	private Collection<ItemVenda> itensVendaCollection;
+	
+	@JoinColumn(name = "CAIXA_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private Caixa caixa;
 
 	public Venda(UserSistem userSistem, Agente cliente) {
 		this.userSistem = userSistem;
@@ -54,7 +58,7 @@ public class Venda {
 	}
 
 	public Venda(UserSistem userSistem, Agente cliente, BigDecimal saldoDevedor, BigDecimal dinheiro,
-			BigDecimal cartaoCredito, BigDecimal cartaoDebito, BigDecimal total) {
+			BigDecimal cartaoCredito, BigDecimal cartaoDebito, BigDecimal total, Caixa caixa) {
 		this.userSistem = userSistem;
 		this.cliente = cliente;
 		this.saldoDevedor = saldoDevedor;
@@ -62,5 +66,6 @@ public class Venda {
 		this.cartaoCredito = cartaoCredito;
 		this.cartaoDebito = cartaoDebito;
 		this.total = total;
+		this.caixa = caixa;
 	}
 }

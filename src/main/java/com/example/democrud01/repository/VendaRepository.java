@@ -1,10 +1,13 @@
 package com.example.democrud01.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.democrud01.model.Caixa;
 import com.example.democrud01.model.UserSistem;
 import com.example.democrud01.model.Venda;
 
@@ -12,4 +15,8 @@ import com.example.democrud01.model.Venda;
 public interface VendaRepository extends JpaRepository<Venda, Long> {
 	
 	Page<Venda> findByUserSistem(UserSistem userSistem, Pageable paginacao);
+
+	Page<Venda> findByCaixa(Caixa caixa, Pageable paginacao);
+	
+	List<Venda> findAllByCaixa(Caixa caixa);
 }

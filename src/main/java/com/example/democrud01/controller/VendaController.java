@@ -27,12 +27,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.example.democrud01.dto.ItemVendaForm;
 import com.example.democrud01.dto.VendaDTO;
 import com.example.democrud01.dto.VendaForm;
+import com.example.democrud01.enums.RoleUser;
 import com.example.democrud01.model.ItemVenda;
 import com.example.democrud01.model.Produto;
 import com.example.democrud01.model.Venda;
 import com.example.democrud01.repository.ProdutoRepository;
 import com.example.democrud01.service.AgenteService;
-import com.example.democrud01.service.ItemVendaService;
+import com.example.democrud01.service.CaixaService;
 import com.example.democrud01.service.ProdutoService;
 import com.example.democrud01.service.UserService;
 import com.example.democrud01.service.VendaService;
@@ -54,7 +55,7 @@ public class VendaController {
     private AgenteService agenteService;
 	
 	@Autowired
-    private ItemVendaService itemService;
+    private CaixaService caixaService;
 	
 	@Autowired
     private ProdutoService produtoService;
@@ -75,7 +76,7 @@ public class VendaController {
 	@ApiOperation(value = "Cadastrarc um novo Venda do sistema")
 	@PostMapping(path = "registrar-venda-completa")
     public ResponseEntity<VendaDTO> registrarVendaCompleta(@RequestBody VendaForm form, UriComponentsBuilder uriBuilder) {
-        Venda venda = form.converterFull(userService, agenteService);
+        Venda venda = form.converterFull(userService, agenteService, caixaService);
         Collection<ItemVenda> itens = new ArrayList<>();
         
         List<Produto> produtos = new ArrayList<>();
@@ -133,6 +134,15 @@ public class VendaController {
 		Pageable page = PageRequest.of(pagina, qtd, ordemAsc ? Direction.ASC : Direction.DESC, ordenacao);
 		
 		Page<Venda> vendas = vendaService.getAll(page);
+		return VendaDTO.converter(vendas);
+	}
+
+	@ApiOperation(value = "Listas todos os vendas por caixa")
+	@GetMapping(path = "/allByCaixa")
+	public Page<VendaDTO> getAllByCaixa(@RequestParam Long idCaixa, @RequestParam int pagina, @RequestParam int qtd, @RequestParam String ordenacao, @RequestParam Boolean ordemAsc) {
+		Pageable page = PageRequest.of(pagina, qtd, ordemAsc ? Direction.ASC : Direction.DESC, ordenacao);
+		
+		Page<Venda> vendas = vendaService.getAlByCaixa(idCaixa, page);
 		return VendaDTO.converter(vendas);
 	}
 

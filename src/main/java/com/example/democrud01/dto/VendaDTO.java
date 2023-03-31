@@ -24,11 +24,10 @@ public class VendaDTO {
 	private String usuario;
 	private Long idCliente;
 	private String cliente;
+	private Long idCaixa;
 	private Calendar dataVenda;
 	
 	private PagamentoForm pagamento;
-	
-	private List<ItemVendaDTO> itens;
 	
 	public VendaDTO(Venda venda) {
 		this.id = venda.getId();
@@ -37,14 +36,13 @@ public class VendaDTO {
 		this.idCliente = venda.getCliente() !=null ? venda.getCliente().getId() : null;
 		this.cliente = venda.getCliente() !=null ? venda.getCliente().getName(): "";
 		this.dataVenda = venda.getDataVenda();
-		//this.itens = convertItens(venda.getItensVendaCollection());
+		this.idCaixa = venda.getCaixa().getId(); 
 		pagamento = new PagamentoForm();
 		pagamento.setCartaoCredito(venda.getCartaoCredito());
 		pagamento.setCartaoDebito(venda.getCartaoDebito());
 		pagamento.setDinheiro(venda.getDinheiro());
 		pagamento.setSaldoDevedor(venda.getSaldoDevedor());
 		pagamento.setTotal(venda.getTotal());
-		//this.pagamento = new PagamentoForm(venda.getSaldoDevedor(), venda.getDinheiro(), venda.getCartaoCredito(), venda.getCartaoDebito());
 	}
 	
 	private List<ItemVendaDTO> convertItens(Collection<ItemVenda> itensVenda){
