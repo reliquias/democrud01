@@ -24,6 +24,9 @@ public class CaixaDTO {
 	private Calendar dataAbertura;
 	private Calendar dataFechamento;
 	private BigDecimal valorTotal;
+	private BigDecimal valorInicial;
+	private BigDecimal valorTotalReal;
+	
 	
 	public CaixaDTO(Caixa caixa) {
 		this.id = caixa.getId();
@@ -34,6 +37,8 @@ public class CaixaDTO {
 		this.dataAbertura = caixa.getDataAbertura();
 		this.dataFechamento = caixa.getDataFechamento();
 		this.valorTotal = caixa.getValorTotal();
+		this.valorInicial = caixa.getValorInicial();
+		this.valorTotalReal = caixa.getValorTotalReal();
 	}
 	
 	public static Page<CaixaDTO> converter(Page<Caixa> caixas) {

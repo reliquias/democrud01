@@ -41,18 +41,24 @@ public class Caixa {
 
 	private Calendar dataFechamento;
 	
+	private BigDecimal valorInicial;
+
 	private BigDecimal valorTotal;
+
+	private BigDecimal valorTotalReal;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "caixa")
 	private Collection<Venda> vendasCollection;
 
 	public Caixa(UserSistem usuarioAbertura, Calendar dataAbertura, UserSistem usuarioFechamento,
-			Calendar dataFechamento, BigDecimal valorTotal) {
+			Calendar dataFechamento, BigDecimal valorTotal, BigDecimal valorInicial, BigDecimal valorTotalReal) {
 		this.usuarioAbertura = usuarioAbertura;
 		this.dataAbertura = dataAbertura;
 		this.usuarioFechamento = usuarioFechamento;
 		this.dataFechamento = dataFechamento;
 		this.valorTotal = valorTotal;
+		this.valorInicial = valorInicial;
+		this.valorTotalReal = valorTotalReal;
 	}
 	
 	

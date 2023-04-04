@@ -19,11 +19,13 @@ public class CaixaForm {
 	private Calendar dataAbertura;
 	private Calendar dataFechamento;
 	private BigDecimal valorTotal;
+	private BigDecimal valorInicial;
+	private BigDecimal valorTotalReal;
 		
 	public Caixa converter(UserService userService) {
 		Optional<UserSistem> usuarioAbertura = userService.get(idUsuarioAbertura);
 		Optional<UserSistem> usuarioFechamento = userService.get(idUsuarioFechamento);
-		return new Caixa(usuarioAbertura.get(), dataAbertura, usuarioFechamento.get(), dataFechamento, valorTotal);
+		return new Caixa(usuarioAbertura.get(), dataAbertura, usuarioFechamento.get(), dataFechamento, valorTotal, valorInicial, valorTotalReal);
     }
 	
 	

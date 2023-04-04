@@ -1,5 +1,6 @@
 package com.example.democrud01.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Calendar;
 import java.util.List;
@@ -59,9 +60,10 @@ public class CaixaController {
 	
 	@ApiOperation(value = "Abrir Caixa")
 	@PostMapping(path = "/open")
-    public ResponseEntity<CaixaDTO> aberturaCaixa(@RequestParam Long idUsuarioAbertura, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<CaixaDTO> aberturaCaixa(@RequestParam Long idUsuarioAbertura, @RequestParam BigDecimal valorInicial, UriComponentsBuilder uriBuilder) {
         Caixa caixa = new Caixa();
         caixa.setDataAbertura(Calendar.getInstance());
+        caixa.setValorInicial(valorInicial);
         UserSistem usuarioAbertura = userService.get(idUsuarioAbertura).get();
         caixa.setUsuarioAbertura(usuarioAbertura);
         caixaService.create(caixa);
@@ -71,12 +73,13 @@ public class CaixaController {
 	
 	@ApiOperation(value = "Fechar o Caixa")
 	@PutMapping(value="/close/{id}")
-	public ResponseEntity<CaixaDTO> fechamentoCaixa(@PathVariable("id") long id, @RequestParam Long idUsuarioFechamento, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<CaixaDTO> fechamentoCaixa(@PathVariable("id") long id, @RequestParam Long idUsuarioFechamento, @RequestParam BigDecimal valorTotalReal, UriComponentsBuilder uriBuilder) {
 		Caixa caixa = new Caixa();
 		
 		caixa.setDataFechamento(Calendar.getInstance());
         UserSistem usuarioFechamento = userService.get(idUsuarioFechamento).get();
         caixa.setUsuarioFechamento(usuarioFechamento);
+        caixa.setValorTotalReal(valorTotalReal);
 		
 		caixa = caixaService.fechamentoCaixa(id, caixa).getBody();
 		URI uri = uriBuilder.path("/api/caixa/{id}").buildAndExpand(caixa.getId()).toUri();
