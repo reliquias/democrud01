@@ -31,7 +31,7 @@ import com.example.democrud01.model.UserSistem;
 import com.example.democrud01.model.Venda;
 import com.example.democrud01.service.CaixaService;
 import com.example.democrud01.service.UserService;
-import com.example.democrud01.service.VendaService;
+import com.example.democrud01.service.TransacaoService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -47,7 +47,7 @@ public class CaixaController {
     private UserService userService;
 
 	@Autowired
-	private VendaService vendaService;
+	private TransacaoService vendaService;
 	
 	@ApiOperation(value = "Cadastrar um novo Caixa do sistema")
 	@PostMapping

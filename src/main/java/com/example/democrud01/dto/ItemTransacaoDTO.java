@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.data.domain.Page;
 
-import com.example.democrud01.model.ItemVenda;
+import com.example.democrud01.model.ItemTransacao;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemVendaDTO {
+public class ItemTransacaoDTO {
 	
 	private Long id;
 	private Short sequencia;
@@ -23,13 +23,13 @@ public class ItemVendaDTO {
     
     private Long idProduto;
     private String produto;
-    private Long idVenda;
+    private Long idTransacao;
     
-    public static Page<ItemVendaDTO> converter(Page<ItemVenda> itens) {
-		return itens.map(ItemVendaDTO::new);
+    public static Page<ItemTransacaoDTO> converter(Page<ItemTransacao> itens) {
+		return itens.map(ItemTransacaoDTO::new);
 	}
 
-	public ItemVendaDTO(ItemVenda item) {
+	public ItemTransacaoDTO(ItemTransacao item) {
 		this.id = item.getId();
 		this.sequencia = item.getSequencia();
 		this.quantidade = item.getQuantidade();
@@ -37,7 +37,7 @@ public class ItemVendaDTO {
 		this.valorTotal = item.getValorTotal();
 		this.idProduto = item.getProduto().getId();
 		this.produto = item.getProduto().getCodigo();
-		this.idVenda = item.getVenda().getId();
+		this.idTransacao = item.getTransacao().getId();
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Caixa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USUARIO_ABERTURA_ID", referencedColumnName = "ID")
 	private UserSistem usuarioAbertura;
 	
@@ -48,7 +49,7 @@ public class Caixa {
 	private BigDecimal valorTotalReal;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "caixa")
-	private Collection<Venda> vendasCollection;
+	private Collection<Transacao> transacoesCollection;
 
 	public Caixa(UserSistem usuarioAbertura, Calendar dataAbertura, UserSistem usuarioFechamento,
 			Calendar dataFechamento, BigDecimal valorTotal, BigDecimal valorInicial, BigDecimal valorTotalReal) {

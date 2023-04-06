@@ -16,12 +16,10 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-/*
 @Data
 @Entity
-@Table(name = "FW23_ITEM_VENDA")
-*/
-public class ItemVenda{
+@Table(name = "FW23_ITEM_TRANSACAO")
+public class ItemTransacao{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,18 +37,18 @@ public class ItemVenda{
     @ManyToOne
     private Produto produto;
     
-	@JoinColumn(name = "VENDA_ID", referencedColumnName = "ID", nullable = false)
+	@JoinColumn(name = "TRANSACAO_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne
-    private Venda venda;
+    private Transacao transacao;
 
-	public ItemVenda(Short sequencia, BigDecimal quantidade, BigDecimal valorUnitario, BigDecimal valorTotal,
-			Produto produto, Venda venda) {
+	public ItemTransacao(Short sequencia, BigDecimal quantidade, BigDecimal valorUnitario, BigDecimal valorTotal,
+			Produto produto, Transacao transacao) {
 		this.sequencia = sequencia;
 		this.quantidade = quantidade;
 		this.valorUnitario = valorUnitario;
 		this.valorTotal = valorTotal;
 		this.produto = produto;
-		this.venda = venda;
+		this.transacao = transacao;
 	}
 	
 	

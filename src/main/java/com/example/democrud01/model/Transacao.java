@@ -14,18 +14,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.democrud01.enums.TipoTransacao;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-/*
 @Data
 @Entity
-@Table(name = "FW23_VENDA")
-*/
-public class Venda {
+@Table(name = "FW23_TRANSACAO")
+public class Transacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,22 +44,24 @@ public class Venda {
 	private BigDecimal dinheiro;
 	private BigDecimal cartaoCredito;
 	private BigDecimal cartaoDebito;
-	private Calendar dataVenda = Calendar.getInstance();
+	private Calendar dataTransacao = Calendar.getInstance();
+	
+	private TipoTransacao tipo;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "venda")
-	private Collection<ItemVenda> itensVendaCollection;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "transacao")
+	private Collection<ItemTransacao> itensTransacaoCollection;
 	
 	@JoinColumn(name = "CAIXA_ID", referencedColumnName = "ID")
     @ManyToOne
     private Caixa caixa;
 
-	public Venda(UserSistem userSistem, Agente cliente) {
+	public Transacao(UserSistem userSistem, Agente cliente) {
 		this.userSistem = userSistem;
 		this.cliente = cliente;
 	}
 
-	public Venda(UserSistem userSistem, Agente cliente, BigDecimal saldoDevedor, BigDecimal dinheiro,
-			BigDecimal cartaoCredito, BigDecimal cartaoDebito, BigDecimal total, Caixa caixa) {
+	public Transacao(UserSistem userSistem, Agente cliente, BigDecimal saldoDevedor, BigDecimal dinheiro,
+			BigDecimal cartaoCredito, BigDecimal cartaoDebito, BigDecimal total, Caixa caixa, TipoTransacao tipo) {
 		this.userSistem = userSistem;
 		this.cliente = cliente;
 		this.saldoDevedor = saldoDevedor;
@@ -68,5 +70,6 @@ public class Venda {
 		this.cartaoDebito = cartaoDebito;
 		this.total = total;
 		this.caixa = caixa;
+		this.tipo = tipo;
 	}
 }

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.democrud01.model.Caixa;
 import com.example.democrud01.model.UserSistem;
-import com.example.democrud01.model.Venda;
+import com.example.democrud01.model.Transacao;
 import com.example.democrud01.repository.CaixaRepository;
 import com.example.democrud01.repository.UserRepository;
-import com.example.democrud01.repository.VendaRepository;
+import com.example.democrud01.repository.TransacaoRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ public class CaixaService {
 	private CaixaRepository caixaRepository;
 
 	@Autowired
-	private VendaRepository vendaRepository;
+	private TransacaoRepository transacaoRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -62,8 +62,8 @@ public class CaixaService {
 		record.setUsuarioFechamento(caixa.getUsuarioFechamento());
 		record.setValorTotalReal(caixa.getValorTotalReal());
 		
-		List<Venda> vendas = vendaRepository.findAllByCaixa(record);
-		BigDecimal sum = vendas.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+		List<Transacao> transacaos = transacaoRepository.findAllByCaixa(record);
+		BigDecimal sum = transacaos.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
 		record.setValorTotal(sum.add(record.getValorInicial()));
 		Caixa updated = caixaRepository.save(record);
 		return ResponseEntity.ok().body(updated);
@@ -81,8 +81,8 @@ public class CaixaService {
 	public Optional<Caixa> getOpened() {
 		log.info("Executando CaixaService metodo getOpened");
 		Caixa record = caixaRepository.findByDataFechamentoIsNull().get();
-		List<Venda> vendas = vendaRepository.findAllByCaixa(record);
-		BigDecimal sum = vendas.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+		List<Transacao> transacaos = transacaoRepository.findAllByCaixa(record);
+		BigDecimal sum = transacaos.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
 		record.setValorTotal(sum.add(record.getValorInicial()));
 		return Optional.of(record);
 	}
@@ -94,8 +94,8 @@ public class CaixaService {
 		Optional<Caixa> optCaixa = caixaRepository.findByUsuarioAberturaAndDataFechamentoIsNull(usuario);
 		if (optCaixa.isPresent()) {
 			Caixa record = caixaRepository.findByUsuarioAberturaAndDataFechamentoIsNull(usuario).get();
-			List<Venda> vendas = vendaRepository.findAllByCaixa(record);
-			BigDecimal sum = vendas.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+			List<Transacao> transacaos = transacaoRepository.findAllByCaixa(record);
+			BigDecimal sum = transacaos.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
 			record.setValorTotal(sum.add(record.getValorInicial()));
 			return Optional.of(record);
 		} else {
