@@ -5,7 +5,9 @@ import java.util.Calendar;
 
 import org.springframework.data.domain.Page;
 
+import com.example.democrud01.enums.TipoTransacao;
 import com.example.democrud01.model.Transacao;
+import com.example.democrud01.util.Utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,8 @@ public class ExtratoDTO {
 	private BigDecimal dinheiro;
 	private BigDecimal cartaoCredito;
 	private BigDecimal cartaoDebito;
+	private BigDecimal debitado;
+	private BigDecimal totalTransacao;
 	
 	
 	public ExtratoDTO(Transacao transacao) {
@@ -33,6 +37,8 @@ public class ExtratoDTO {
 		this.dinheiro = transacao.getDinheiro();
 		this.cartaoCredito = transacao.getCartaoCredito();
 		this.cartaoDebito = transacao.getCartaoDebito();
+		this.debitado = transacao.getTipo().compareTo(TipoTransacao.venda) == 0 ? Utils.substituiNuloPorZero(transacao.getSaldoDevedor()).compareTo(transacao.getTotal())!= 0 ? Utils.substituiNuloPorZero(transacao.getSaldoDevedor()) : null : null;
+		this.totalTransacao = Utils.substituiNuloPorZero(this.cartaoCredito).add(Utils.substituiNuloPorZero(this.cartaoDebito).add(Utils.substituiNuloPorZero(this.dinheiro).add(Utils.substituiNuloPorZero(this.debitado))));
 	}
 	
 	public static Page<ExtratoDTO> converter(Page<Transacao> transacaos) {

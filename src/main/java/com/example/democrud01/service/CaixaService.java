@@ -15,6 +15,7 @@ import com.example.democrud01.model.UserSistem;
 import com.example.democrud01.model.Transacao;
 import com.example.democrud01.repository.CaixaRepository;
 import com.example.democrud01.repository.UserRepository;
+import com.example.democrud01.util.Utils;
 import com.example.democrud01.repository.TransacaoRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class CaixaService {
 		record.setValorTotalReal(caixa.getValorTotalReal());
 		
 		List<Transacao> transacaos = transacaoRepository.findAllByCaixa(record);
-		BigDecimal sum = transacaos.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+		BigDecimal sum = transacaos.stream().map(x -> Utils.substituiNuloPorZero(x.getCartaoCredito()).add(Utils.substituiNuloPorZero(x.getCartaoDebito())).add(Utils.substituiNuloPorZero(x.getDinheiro()))).reduce(BigDecimal.ZERO, BigDecimal::add);
 		record.setValorTotal(sum.add(record.getValorInicial()));
 		Caixa updated = caixaRepository.save(record);
 		return ResponseEntity.ok().body(updated);
@@ -95,7 +96,7 @@ public class CaixaService {
 		if (optCaixa.isPresent()) {
 			Caixa record = caixaRepository.findByUsuarioAberturaAndDataFechamentoIsNull(usuario).get();
 			List<Transacao> transacaos = transacaoRepository.findAllByCaixa(record);
-			BigDecimal sum = transacaos.stream().map(x -> x.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+			BigDecimal sum = transacaos.stream().map(x -> Utils.substituiNuloPorZero(x.getCartaoCredito()).add(Utils.substituiNuloPorZero(x.getCartaoDebito())).add(Utils.substituiNuloPorZero(x.getDinheiro()))).reduce(BigDecimal.ZERO, BigDecimal::add);
 			record.setValorTotal(sum.add(record.getValorInicial()));
 			return Optional.of(record);
 		} else {

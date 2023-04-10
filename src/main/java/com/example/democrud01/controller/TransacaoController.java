@@ -98,7 +98,7 @@ public class TransacaoController {
 		}
         
         if(transacao.getCliente()!=null && transacao.getSaldoDevedor()!=null && transacao.getSaldoDevedor().compareTo(BigDecimal.ZERO) != 0) {
-        	agenteService.updateCredito(transacao.getCliente().getId(), transacao.getSaldoDevedor());
+        	agenteService.debitaCredito(transacao.getCliente().getId(), transacao.getSaldoDevedor());
         }
         URI uri = uriBuilder.path("/api/transacao/{id}").buildAndExpand(transacao.getId()).toUri();
         return ResponseEntity.created(uri).body(new TransacaoDTO(transacao));
@@ -167,6 +167,7 @@ public class TransacaoController {
 	@PostMapping(value="/pgtoDebito")
 	public ResponseEntity<TransacaoDTO> pgtoDebito(@RequestBody PgtoDebitoForm form, UriComponentsBuilder uriBuilder) {
 		Transacao transacao = form.converter(userService, agenteService, caixaService);
+		transacao.setSaldoDevedor(BigDecimal.ZERO);
 		transacaoService.create(transacao);
 		agenteService.updateCredito(transacao.getCliente().getId(), transacao.getTotal());
 		URI uri = uriBuilder.path("/api/transacao/{id}").buildAndExpand(transacao.getId()).toUri();

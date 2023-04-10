@@ -61,6 +61,10 @@ public class Caixa {
 		this.valorInicial = valorInicial;
 		this.valorTotalReal = valorTotalReal;
 	}
+
+	public Caixa(Long id) {
+		this.id = id;
+	}
 	
 	
 }

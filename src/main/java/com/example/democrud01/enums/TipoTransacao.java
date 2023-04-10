@@ -7,6 +7,7 @@ public enum TipoTransacao {
 	suprimento("suprimento", "Suprimento Caixa"), 
 	pgto_debito("pgto_debito", "Pagamento Debito"),
 	abertura("abertura", "Abertura de Caixa"),
+	total("total", "Total"),
 	sangria("sangria", "Sangria Caixa");
 
 	private String codigo;

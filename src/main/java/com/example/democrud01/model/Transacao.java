@@ -72,4 +72,12 @@ public class Transacao {
 		this.caixa = caixa;
 		this.tipo = tipo;
 	}
+
+	public Transacao(BigDecimal dinheiro, BigDecimal cartaoCredito, BigDecimal cartaoDebito) {
+		this.dinheiro = dinheiro;
+		this.cartaoCredito = cartaoCredito;
+		this.cartaoDebito = cartaoDebito;
+	}
+	
+	
 }

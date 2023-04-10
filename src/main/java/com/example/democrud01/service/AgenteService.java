@@ -44,6 +44,18 @@ public class AgenteService {
 		return ResponseEntity.ok().body(updated);
 	}
 	
+	public Agente debitaCredito(long id, BigDecimal valor) {
+		Agente record = agenteRepository.findById(id).get();
+		if(record == null) {
+			return null;
+		}
+		BigDecimal atual = record.getCredito() == null ? BigDecimal.ZERO : record.getCredito();
+		record.setCredito(atual.subtract(valor));
+		
+		Agente updated = agenteRepository.save(record);
+		return updated;
+	}
+	
 	public Agente updateCredito(long id, BigDecimal valor) {
 		Agente record = agenteRepository.findById(id).get();
 		if(record == null) {
